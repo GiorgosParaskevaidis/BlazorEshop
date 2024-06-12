@@ -1,15 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <!--<ItemGroup>
-    <Content Remove="Layout\ProductList.razor" />
-  </ItemGroup>-->
-
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.5" PrivateAssets="all" />
@@ -17,18 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorEshop.Shared\BlazorEshop.Shared.csproj" />
-  </ItemGroup>
-
-  <!--<ItemGroup>
-    <UpToDateCheckInput Remove="Layout\ProductList.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Layout\ProductList.razor" />
-  </ItemGroup>-->
-
-  <ItemGroup>
-    <None Include="Layout\ProductList.razor" />
   </ItemGroup>
 
 </Project>
