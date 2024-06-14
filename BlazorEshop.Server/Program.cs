@@ -2,6 +2,7 @@ global using BlazorEshop.Shared;
 global using Microsoft.EntityFrameworkCore;
 global using BlazorEshop.Server.Data;
 global using BlazorEshop.Server.Services.ProductService;
+global using BlazorEshop.Server.Services.CategoryService;
 namespace BlazorEshop.Server
 {
     public class Program
@@ -27,6 +28,7 @@ namespace BlazorEshop.Server
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
 
             var app = builder.Build();
             app.UseSwaggerUI ();
