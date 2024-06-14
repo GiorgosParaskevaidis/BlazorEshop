@@ -65,6 +65,19 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
+.price {
+    color: green;
+}
+
+.media {
+    display: flex;
+    align-items: flex-start;
+}
+
+.media-body {
+    flex: 1
+}
+
 .loading-progress {
     position: relative;
     display: block;

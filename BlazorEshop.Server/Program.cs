@@ -1,6 +1,7 @@
 global using BlazorEshop.Shared;
 global using Microsoft.EntityFrameworkCore;
 global using BlazorEshop.Server.Data;
+global using BlazorEshop.Server.Services.ProductService;
 namespace BlazorEshop.Server
 {
     public class Program
@@ -24,6 +25,8 @@ namespace BlazorEshop.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             var app = builder.Build();
             app.UseSwaggerUI ();
