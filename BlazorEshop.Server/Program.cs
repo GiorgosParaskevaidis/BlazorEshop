@@ -3,6 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 global using BlazorEshop.Server.Data;
 global using BlazorEshop.Server.Services.ProductService;
 global using BlazorEshop.Server.Services.CategoryService;
+using BlazorEshop.Server.Services.CartService;
 namespace BlazorEshop.Server
 {
     public class Program
@@ -29,6 +30,7 @@ namespace BlazorEshop.Server
 
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ICartService, CartService>();
 
             var app = builder.Build();
             app.UseSwaggerUI ();
