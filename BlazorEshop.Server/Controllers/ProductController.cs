@@ -1,4 +1,5 @@
 ﻿using BlazorEshop.Server.Data;
+using BlazorEshop.Shared.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,10 +37,10 @@ namespace BlazorEshop.Server.Controllers
             return Ok(result);
         }
 
-        [HttpGet("search/{searchText}")]
-        public async Task<ActionResult<ServiceResponse<List<Product>>>> SearchProducts(string searchText)
+        [HttpGet("search/{searchText}/{page}")]
+        public async Task<ActionResult<ServiceResponse<ProductSearchResultDTO>>> SearchProducts(string searchText, int page = 1)
         {
-            var result = await _productService.SearchProducts(searchText);
+            var result = await _productService.SearchProducts(searchText, page);
             return Ok(result);
         }
 
