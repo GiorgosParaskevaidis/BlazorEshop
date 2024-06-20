@@ -3,7 +3,10 @@ global using Microsoft.EntityFrameworkCore;
 global using BlazorEshop.Server.Data;
 global using BlazorEshop.Server.Services.ProductService;
 global using BlazorEshop.Server.Services.CategoryService;
-using BlazorEshop.Server.Services.CartService;
+global using BlazorEshop.Server.Services.CartService;
+global using BlazorEshop.Server.Services.AuthService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 namespace BlazorEshop.Server
 {
     public class Program
@@ -31,6 +34,20 @@ namespace BlazorEshop.Server
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(System.Text.Encoding.UTF8
+                            .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
 
             var app = builder.Build();
             app.UseSwaggerUI ();
@@ -50,6 +67,7 @@ namespace BlazorEshop.Server
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapRazorPages();
