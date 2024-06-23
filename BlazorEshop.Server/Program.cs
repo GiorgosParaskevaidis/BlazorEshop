@@ -5,6 +5,7 @@ global using BlazorEshop.Server.Services.ProductService;
 global using BlazorEshop.Server.Services.CategoryService;
 global using BlazorEshop.Server.Services.CartService;
 global using BlazorEshop.Server.Services.AuthService;
+global using BlazorEshop.Server.Services.OrderService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 namespace BlazorEshop.Server
@@ -35,6 +36,7 @@ namespace BlazorEshop.Server
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -48,6 +50,7 @@ namespace BlazorEshop.Server
                         ValidateAudience = false
                     };
                 });
+            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
             app.UseSwaggerUI ();

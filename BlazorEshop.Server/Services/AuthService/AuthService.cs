@@ -11,12 +11,16 @@ namespace BlazorEshop.Server.Services.AuthService
     {
         private readonly BlazoreshopDbContex _context;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthService(BlazoreshopDbContex context, IConfiguration configuration)
+        public AuthService(BlazoreshopDbContex context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
+
+        public int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         public async Task<ServiceResponse<string>> Login(string email, string password)
         {

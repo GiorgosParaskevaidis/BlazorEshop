@@ -3,11 +3,11 @@ global using BlazorEshop.Client.Services.CategoryService;
 global using BlazorEshop.Client.Services.ProductService;
 global using BlazorEshop.Client.Services.AuthService;
 global using Microsoft.AspNetCore.Components.Authorization;
+global using BlazorEshop.Client.Services.CartService;
+global using BlazorEshop.Client.Services.OrderService;
 using Microsoft.AspNetCore.Components.Web;
 using Blazored.LocalStorage;
-
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using BlazorEshop.Client.Services.CartService;
 
 
 namespace BlazorEshop.Client
@@ -26,6 +26,7 @@ namespace BlazorEshop.Client
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddOptions();
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
