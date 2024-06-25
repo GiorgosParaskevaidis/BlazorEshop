@@ -6,6 +6,8 @@ global using BlazorEshop.Server.Services.CategoryService;
 global using BlazorEshop.Server.Services.CartService;
 global using BlazorEshop.Server.Services.AuthService;
 global using BlazorEshop.Server.Services.OrderService;
+global using BlazorEshop.Server.Services.PaymentService;
+global using BlazorEshop.Server.Services.AddressService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 namespace BlazorEshop.Server
@@ -37,6 +39,8 @@ namespace BlazorEshop.Server
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IAddressService, AddressService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

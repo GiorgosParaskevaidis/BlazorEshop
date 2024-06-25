@@ -56,7 +56,7 @@ namespace BlazorEshop.Client.Services.CartService
             if (await _authService.IsUserAuthenticated())
             {
                 var result = await _http.GetFromJsonAsync<ServiceResponse<int>>("api/cart/count");
-                var count = result.Data;
+                var count = result!.Data;
 
                 await _localStorage.SetItemAsync<int>("cartItemsCount", count);
             }
@@ -74,7 +74,7 @@ namespace BlazorEshop.Client.Services.CartService
             if (await _authService.IsUserAuthenticated())
             {
                 var response = await _http.GetFromJsonAsync<ServiceResponse<List<CartProductResponseDTO>>>("api/cart");
-                return response.Data;
+                return response!.Data!;
             }
             else
             {
@@ -83,7 +83,7 @@ namespace BlazorEshop.Client.Services.CartService
                 var response = await _http.PostAsJsonAsync("api/cart/products", cartItems);
                 var cartProducts =
                     await response.Content.ReadFromJsonAsync<ServiceResponse<List<CartProductResponseDTO>>>();
-                return cartProducts.Data;
+                return cartProducts!.Data!;
             }
         }
 
