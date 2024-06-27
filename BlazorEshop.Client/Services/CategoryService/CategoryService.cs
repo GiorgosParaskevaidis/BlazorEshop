@@ -23,14 +23,14 @@ namespace BlazorEshop.Client.Services.CategoryService
             AdminCategories = (await response.Content
                 .ReadFromJsonAsync<ServiceResponse<List<Category>>>()).Data;
             await GetCategories();
-            OnChange.Invoke();
+            OnChange?.Invoke();
         }
 
         public Category  CreateNewCategory()
         {
             var newCategory = new Category { IsNew = true, Editing = true };
             AdminCategories.Add(newCategory);
-            OnChange.Invoke();
+            OnChange?.Invoke();
             return newCategory;
         }
 
@@ -40,14 +40,16 @@ namespace BlazorEshop.Client.Services.CategoryService
             AdminCategories = (await response.Content
                 .ReadFromJsonAsync<ServiceResponse<List<Category>>>()).Data;
             await GetCategories();
-            OnChange.Invoke();
+            OnChange?.Invoke();
         }
 
         public async Task GetAdminCategories()
         {
             var response = await _http.GetFromJsonAsync<ServiceResponse<List<Category>>>("api/Category/admin");
             if (response != null && response.Data != null)
-                Categories = response.Data;
+            {
+                AdminCategories = response.Data;
+            }
         }
 
         public async Task GetCategories()
@@ -63,7 +65,7 @@ namespace BlazorEshop.Client.Services.CategoryService
             AdminCategories = (await response.Content
                 .ReadFromJsonAsync<ServiceResponse<List<Category>>>()).Data;
             await GetCategories();
-            OnChange.Invoke();
+            OnChange?.Invoke();
         }
     }
 }

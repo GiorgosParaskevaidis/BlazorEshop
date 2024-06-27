@@ -18,5 +18,5 @@
   <ItemGroup>
     <ProjectReference Include="..\BlazorEshop.Shared\BlazorEshop.Shared.csproj" />
   </ItemGroup>
-
+  
 </Project>
