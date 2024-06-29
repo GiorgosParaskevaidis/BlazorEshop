@@ -158,6 +158,34 @@ namespace BlazorEshop.Server.Migrations
                 values: new object[] { false, true });
 
             migrationBuilder.UpdateData(
+                table: "ProductVariants",
+                keyColumns: new[] { "ProductId", "ProductTypeId" },
+                keyValues: new object[] { 12, 1 },
+                columns: new[] { "Deleted", "Visible" },
+                values: new object[] { false, true });
+
+            migrationBuilder.UpdateData(
+                table: "ProductVariants",
+                keyColumns: new[] { "ProductId", "ProductTypeId" },
+                keyValues: new object[] { 13, 1 },
+                columns: new[] { "Deleted", "Visible" },
+                values: new object[] { false, true });
+
+            migrationBuilder.UpdateData(
+                table: "ProductVariants",
+                keyColumns: new[] { "ProductId", "ProductTypeId" },
+                keyValues: new object[] { 14, 5 },
+                columns: new[] { "Deleted", "Visible" },
+                values: new object[] { false, true });
+
+            migrationBuilder.UpdateData(
+                table: "ProductVariants",
+                keyColumns: new[] { "ProductId", "ProductTypeId" },
+                keyValues: new object[] { 15, 6 },
+                columns: new[] { "Deleted", "Visible" },
+                values: new object[] { false, true });
+
+            migrationBuilder.UpdateData(
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 1,
@@ -231,6 +259,34 @@ namespace BlazorEshop.Server.Migrations
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 11,
+                columns: new[] { "Deleted", "Visible" },
+                values: new object[] { false, true });
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 12,
+                columns: new[] { "Deleted", "Visible" },
+                values: new object[] { false, true });
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 13,
+                columns: new[] { "Deleted", "Visible" },
+                values: new object[] { false, true });
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 14,
+                columns: new[] { "Deleted", "Visible" },
+                values: new object[] { false, true });
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 15,
                 columns: new[] { "Deleted", "Visible" },
                 values: new object[] { false, true });
         }

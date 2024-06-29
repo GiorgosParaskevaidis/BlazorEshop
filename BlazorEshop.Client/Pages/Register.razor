@@ -1,5 +1,6 @@
 ﻿@page "/register"
 @inject IAuthService AuthService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Register</PageTitle>
 
@@ -40,9 +41,16 @@
         var result = await AuthService.Register(user);
         message = result.Message;
         if (!result.Success)
+        {
             messageCssClass = "text-success";
+            await Task.Delay(5000);
+            NavigationManager.NavigateTo("/");
+        }
         else
-            messageCssClass =  "text-danger";
+        {
+            messageCssClass = "text-danger";
+        }
+        
     }
 
 }

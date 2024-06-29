@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using MudBlazor.Charts;
+using static MudBlazor.CategoryTypes;
 
 #nullable disable
 
@@ -24,7 +26,11 @@ namespace BlazorEshop.Server.Migrations
                     { 8, 3, "Diablo II is an action role-playing hack-and-slash computer video game developed by Blizzard North and published by Blizzard Entertainment in 2000 for Microsoft Windows, Classic Mac OS, and macOS.", "https://upload.wikimedia.org/wikipedia/en/d/d5/Diablo_II_Coverart.png", 9.99m, "Diablo II" },
                     { 9, 3, "Day of the Tentacle, also known as Maniac Mansion II: Day of the Tentacle, is a 1993 graphic adventure game developed and published by LucasArts. It is the sequel to the 1987 game Maniac Mansion.", "https://upload.wikimedia.org/wikipedia/en/7/79/Day_of_the_Tentacle_artwork.jpg", 14.99m, "Day of the Tentacle" },
                     { 10, 3, "The Xbox is a home video game console and the first installment in the Xbox series of video game consoles manufactured by Microsoft.", "https://upload.wikimedia.org/wikipedia/commons/4/43/Xbox-console.jpg", 159.99m, "Xbox" },
-                    { 11, 3, "The Super Nintendo Entertainment System (SNES), also known as the Super NES or Super Nintendo, is a 16-bit home video game console developed by Nintendo that was released in 1990 in Japan and South Korea.", "https://upload.wikimedia.org/wikipedia/commons/e/ee/Nintendo-Super-Famicom-Set-FL.jpg", 79.99m, "Super Nintendo Entertainment System" }
+                    { 11, 3, "The Super Nintendo Entertainment System (SNES), also known as the Super NES or Super Nintendo, is a 16-bit home video game console developed by Nintendo that was released in 1990 in Japan and South Korea.", "https://upload.wikimedia.org/wikipedia/commons/e/ee/Nintendo-Super-Famicom-Set-FL.jpg", 79.99m, "Super Nintendo Entertainment System" },
+                    { 12, 3, "The PlayStation 5 (PS5) is a home video game console developed by Sony Interactive Entertainment. It was announced as the successor to the PlayStation 4 in April 2019, was launched on November 12, 2020, in Australia, Japan, New Zealand, North America, and South Korea, and was released worldwide a week later. The PS5 is part of the ninth generation of video game consoles, along with Microsoft's Xbox Series X/S consoles, which were released in the same month.", "https://upload.wikimedia.org/wikipedia/commons/7/77/Black_and_white_Playstation_5_base_edition_with_controller.png", 399.99m, "PlayStation 5" },
+                    { 13, 3, "The Nintendo Switch[m] is a video game console developed by Nintendo and released worldwide in most regions on March 3, 2017. Released in the middle of the eighth generation of home consoles, the Switch succeeded the Wii U and competed with Microsoft's Xbox One and Sony's PlayStation 4; it also competes with the ninth-generation consoles, Microsoft's Xbox Series X/S and Sony's PlayStation 5.", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Nintendo-Switch-Console-Docked-wJoyConRB.jpg/1280px-Nintendo-Switch-Console-Docked-wJoyConRB.jpg", 279.99m, "Nintendo Switch" },
+                    { 14, 2, "Bridge of Spies is a 2015 American historical drama film directed and co-produced by Steven Spielberg, written by Matt Charman and the Coen brothers, and starring Tom Hanks in the lead role, Mark Rylance, Amy Ryan, and Alan Alda. Set during the Cold War, the film tells the story of lawyer James B. Donovan, who is entrusted with negotiating the release of Francis Gary Powers—a convicted Central Intelligence Agency pilot whose U-2 spy plane was shot down over the Soviet Union in 1960—in exchange for Rudolf Abel, a convicted Soviet KGB spy held by the United States, whom Donovan represented at trial. The name of the film refers to the Glienicke Bridge, which connects Potsdam with Berlin, where the prisoner exchange took place. The film was an international co-production of the United States and Germany.[8]", "https://upload.wikimedia.org/wikipedia/en/f/fa/Bridge_of_Spies_poster.jpg", 19.99m, "Bridge of Spies" },
+                    { 15, 2, "Fast X (also known as Fast & Furious 10) is a 2023 American action film directed by Louis Leterrier from a screenplay written by Dan Mazeau and Justin Lin, both of whom also co-wrote the story with Zach Dean. It is the sequel to F9 (2021), the tenth main installment, and the eleventh installment overall in the Fast & Furious franchise. It stars Vin Diesel as Dominic Toretto alongside an ensemble cast including Michelle Rodriguez, Tyrese Gibson, Chris \"Ludacris\" Bridges, John Cena, Nathalie Emmanuel, Jordana Brewster, Sung Kang, Scott Eastwood, Daniela Melchior, Alan Ritchson, Helen Mirren, Brie Larson, Rita Moreno, Jason Statham, Jason Momoa, and Charlize Theron. In the film, Toretto must protect his family from Dante Reyes (Momoa), who seeks revenge for his father's death and the loss of his family's fortunes..", "https://upload.wikimedia.org/wikipedia/en/f/f2/Fast_X_poster.jpg", 9.99m, "Fast X" },
                 });
         }
 
@@ -70,6 +76,26 @@ namespace BlazorEshop.Server.Migrations
                 table: "Products",
                 keyColumn: "Id",
                 keyValue: 11);
+
+            migrationBuilder.DeleteData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 12);
+
+            migrationBuilder.DeleteData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 13);
+
+            migrationBuilder.DeleteData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 14);
+
+            migrationBuilder.DeleteData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 15);
         }
     }
 }

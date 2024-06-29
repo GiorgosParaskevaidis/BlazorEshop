@@ -22,7 +22,7 @@ namespace BlazorEshop.Server.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "Featured",
-                value: true);
+                value: false);
 
             migrationBuilder.UpdateData(
                 table: "Products",
@@ -50,7 +50,7 @@ namespace BlazorEshop.Server.Migrations
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "Featured",
-                value: true);
+                value: false);
 
             migrationBuilder.UpdateData(
                 table: "Products",
@@ -64,7 +64,7 @@ namespace BlazorEshop.Server.Migrations
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "Featured",
-                value: true);
+                value: false);
 
             migrationBuilder.UpdateData(
                 table: "Products",
@@ -93,6 +93,34 @@ namespace BlazorEshop.Server.Migrations
                 keyValue: 11,
                 column: "Featured",
                 value: false);
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 12,
+                column: "Featured",
+                value: true);
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 13,
+                column: "Featured",
+                value: true);
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 14,
+                column: "Featured",
+                value: true);
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 15,
+                column: "Featured",
+                value: true);
         }
 
         /// <inheritdoc />

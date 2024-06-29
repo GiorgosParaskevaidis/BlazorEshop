@@ -93,7 +93,11 @@ namespace BlazorEshop.Server.Migrations
                     { 8, 8, 24.99m, 9.99m },
                     { 9, 8, 0m, 14.99m },
                     { 10, 1, 299m, 159.99m },
-                    { 11, 1, 399m, 79.99m }
+                    { 11, 1, 399m, 79.99m },
+                    { 12, 1, 0m, 399.99m },
+                    { 13, 1, 0m, 279.99m },
+                    { 14, 5, 0m, 19.99m },
+                    { 15, 6, 0m, 9.99m },
                 });
 
             migrationBuilder.CreateIndex(
@@ -194,6 +198,34 @@ namespace BlazorEshop.Server.Migrations
                 keyValue: 11,
                 column: "Price",
                 value: 79.99m);
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 12,
+                column: "Price",
+                value: 399.99m);
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 13,
+                column: "Price",
+                value: 279.99m);
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 14,
+                column: "Price",
+                value: 19.99m);
+
+            migrationBuilder.UpdateData(
+                table: "Products",
+                keyColumn: "Id",
+                keyValue: 15,
+                column: "Price",
+                value: 9.99m);
         }
     }
 }
