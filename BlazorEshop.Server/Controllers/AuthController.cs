@@ -18,7 +18,7 @@ namespace BlazorEshop.Server.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegisterDTO request)
+        public async Task<ActionResult<ServiceResponseDTO<int>>> Register(UserRegisterDTO request)
         {
             var response = await _authService.Register(
                 new User
@@ -36,7 +36,7 @@ namespace BlazorEshop.Server.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginDTO request)
+        public async Task<ActionResult<ServiceResponseDTO<string>>> Login(UserLoginDTO request)
         {
             var response = await _authService.Login(request.Email, request.Password);
             if (!response.Success)
@@ -48,7 +48,7 @@ namespace BlazorEshop.Server.Controllers
         }
 
         [HttpPost("change-password"), Authorize]
-        public async Task<ActionResult<ServiceResponse<bool>>> ChangePassword([FromBody] string newPassword)
+        public async Task<ActionResult<ServiceResponseDTO<bool>>> ChangePassword([FromBody] string newPassword)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var response = await _authService.ChangePassword(int.Parse(userId!), newPassword);

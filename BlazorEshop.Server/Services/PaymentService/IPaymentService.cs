@@ -1,10 +1,11 @@
-﻿using Stripe.Checkout;
+﻿using BlazorEshop.Shared.DTO;
+using Stripe.Checkout;
 
 namespace BlazorEshop.Server.Services.PaymentService
 {
     public interface IPaymentService
     {
         Task<Session> CreateCheckoutSession();
-        Task<ServiceResponse<bool>> FulfillOrder(HttpRequest request);
+        Task<ServiceResponseDTO<bool>> FulfillOrder(HttpRequest request);
     }
 }

@@ -1,4 +1,6 @@
 ﻿
+using BlazorEshop.Shared.DTO;
+
 namespace BlazorEshop.Server.Services.AddressService
 {
     public class AddressService : IAddressService
@@ -11,9 +13,9 @@ namespace BlazorEshop.Server.Services.AddressService
             _context = context;
             _authService = authService;
         }
-        public async Task<ServiceResponse<Address>> AddOrUpdateAddress(Address address)
+        public async Task<ServiceResponseDTO<Address>> AddOrUpdateAddress(Address address)
         {
-            var response = new ServiceResponse<Address>();
+            var response = new ServiceResponseDTO<Address>();
             var dbAddress = (await GetAddress()).Data;
             if (dbAddress == null)
             {
@@ -38,11 +40,11 @@ namespace BlazorEshop.Server.Services.AddressService
             return response;
         }
 
-        public async Task<ServiceResponse<Address>> GetAddress()
+        public async Task<ServiceResponseDTO<Address>> GetAddress()
         {
             int userId = _authService.GetUserId();
             var address = await _context.Addresses.FirstOrDefaultAsync(a => a.UserId == userId);
-            return new ServiceResponse<Address> { Data = address };
+            return new ServiceResponseDTO<Address> { Data = address };
         }
     }
 }

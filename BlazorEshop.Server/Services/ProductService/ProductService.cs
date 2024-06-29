@@ -14,7 +14,7 @@ namespace BlazorEshop.Server.Services.ProductService
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ServiceResponse<Product>> CreateProduct(Product product)
+        public async Task<ServiceResponseDTO<Product>> CreateProduct(Product product)
         {
             foreach (var variant in product.Variants)
             {
@@ -22,15 +22,15 @@ namespace BlazorEshop.Server.Services.ProductService
             }
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
-            return new ServiceResponse<Product> { Data = product };
+            return new ServiceResponseDTO<Product> { Data = product };
         }
 
-        public async Task<ServiceResponse<bool>> DeleteProduct(int productId)
+        public async Task<ServiceResponseDTO<bool>> DeleteProduct(int productId)
         {
             var dbProduct = await _context.Products.FindAsync(productId);
             if (dbProduct == null)
             {
-                return new ServiceResponse<bool>
+                return new ServiceResponseDTO<bool>
                 {
                     Success = false,
                     Data = false,
@@ -41,12 +41,12 @@ namespace BlazorEshop.Server.Services.ProductService
             dbProduct.Deleted = true;
 
             await _context.SaveChangesAsync();
-            return new ServiceResponse<bool> { Data = true };
+            return new ServiceResponseDTO<bool> { Data = true };
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetAdminProducts()
+        public async Task<ServiceResponseDTO<List<Product>>> GetAdminProducts()
         {
-            var response = new ServiceResponse<List<Product>>
+            var response = new ServiceResponseDTO<List<Product>>
             {
                 Data = await _context.Products
                    .Where(p => !p.Deleted)
@@ -59,9 +59,9 @@ namespace BlazorEshop.Server.Services.ProductService
             return response;
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetFeaturedProducts()
+        public async Task<ServiceResponseDTO<List<Product>>> GetFeaturedProducts()
         {
-            var response = new ServiceResponse<List<Product>>
+            var response = new ServiceResponseDTO<List<Product>>
             {
                 Data = await _context.Products
                 .Where(p => p.Featured && p.Visible && !p.Deleted)
@@ -73,9 +73,9 @@ namespace BlazorEshop.Server.Services.ProductService
             return response;
         }
 
-        public async Task<ServiceResponse<Product>> GetProductAsync(int productId)
+        public async Task<ServiceResponseDTO<Product>> GetProductAsync(int productId)
         {
-            var response = new ServiceResponse<Product>();
+            var response = new ServiceResponseDTO<Product>();
             Product product = null;
 
             if (_httpContextAccessor.HttpContext.User.IsInRole("Admin"))
@@ -108,9 +108,9 @@ namespace BlazorEshop.Server.Services.ProductService
             return response;
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetProductsAsync()
+        public async Task<ServiceResponseDTO<List<Product>>> GetProductsAsync()
         {
-            var response = new ServiceResponse<List<Product>>
+            var response = new ServiceResponseDTO<List<Product>>
             {
                 Data = await _context.Products
                     .Where(p => p.Visible && !p.Deleted)
@@ -122,9 +122,9 @@ namespace BlazorEshop.Server.Services.ProductService
             return response;
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetProductsByCategory(string categoryUrl)
+        public async Task<ServiceResponseDTO<List<Product>>> GetProductsByCategory(string categoryUrl)
         {
-            var response = new ServiceResponse<List<Product>>
+            var response = new ServiceResponseDTO<List<Product>>
             {
                 Data = await _context.Products
                     .Where(p => p.Category.Url.ToLower().Equals(categoryUrl.ToLower()) &&
@@ -137,7 +137,7 @@ namespace BlazorEshop.Server.Services.ProductService
             return response;
         }
 
-        public async Task<ServiceResponse<List<string>>> GetProductSearchSuggestions(string searchText)
+        public async Task<ServiceResponseDTO<List<string>>> GetProductSearchSuggestions(string searchText)
         {
             var products = await FindProductsBySearchText(searchText);
             List<string> result = new List<string>();
@@ -166,10 +166,10 @@ namespace BlazorEshop.Server.Services.ProductService
                     }
                 }
             }
-            return new ServiceResponse<List<string>> { Data = result };
+            return new ServiceResponseDTO<List<string>> { Data = result };
         }
 
-        public async Task<ServiceResponse<ProductSearchResultDTO>> SearchProducts(string searchText, int page)
+        public async Task<ServiceResponseDTO<ProductSearchResultDTO>> SearchProducts(string searchText, int page)
         {
             var pageResults = 2f;
             var pageCount = Math.Ceiling((await FindProductsBySearchText(searchText)).Count / pageResults);
@@ -183,7 +183,7 @@ namespace BlazorEshop.Server.Services.ProductService
                                 .Take((int)pageResults)
                                 .ToListAsync();
 
-            var response = new ServiceResponse<ProductSearchResultDTO>
+            var response = new ServiceResponseDTO<ProductSearchResultDTO>
             {
                 Data = new ProductSearchResultDTO
                 {
@@ -196,7 +196,7 @@ namespace BlazorEshop.Server.Services.ProductService
             return response;
         }
 
-        public async Task<ServiceResponse<Product>> UpdateProduct(Product product)
+        public async Task<ServiceResponseDTO<Product>> UpdateProduct(Product product)
         {
             var dbProduct = await _context.Products
                 .Include(p => p.Images)
@@ -204,7 +204,7 @@ namespace BlazorEshop.Server.Services.ProductService
 
             if (dbProduct == null)
             {
-                return new ServiceResponse<Product>
+                return new ServiceResponseDTO<Product>
                 {
                     Success = false,
                     Message = "Product not found."
@@ -244,7 +244,7 @@ namespace BlazorEshop.Server.Services.ProductService
             }
 
             await _context.SaveChangesAsync();
-            return new ServiceResponse<Product> { Data = product };
+            return new ServiceResponseDTO<Product> { Data = product };
 
         }
         private async Task<List<Product>> FindProductsBySearchText(string searchText)

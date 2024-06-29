@@ -1,4 +1,5 @@
-﻿using Stripe;
+﻿using BlazorEshop.Shared.DTO;
+using Stripe;
 using Stripe.Checkout;
 
 namespace BlazorEshop.Server.Services.PaymentService
@@ -60,7 +61,7 @@ namespace BlazorEshop.Server.Services.PaymentService
             return session;
         }
 
-        public async Task<ServiceResponse<bool>> FulfillOrder(HttpRequest request)
+        public async Task<ServiceResponseDTO<bool>> FulfillOrder(HttpRequest request)
         {
             var json = await new StreamReader(request.Body).ReadToEndAsync();
             try
@@ -78,11 +79,11 @@ namespace BlazorEshop.Server.Services.PaymentService
                     await _orderService.PlaceOrder(user.Id);
                 }
 
-                return new ServiceResponse<bool> { Data = true };
+                return new ServiceResponseDTO<bool> { Data = true };
             }
             catch (StripeException e)
             {
-                return new ServiceResponse<bool> { Data = false, Success = false, Message = e.Message };
+                return new ServiceResponseDTO<bool> { Data = false, Success = false, Message = e.Message };
             }
         }
     }

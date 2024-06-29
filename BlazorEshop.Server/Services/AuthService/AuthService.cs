@@ -1,4 +1,5 @@
 ﻿
+using BlazorEshop.Shared.DTO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -25,9 +26,9 @@ namespace BlazorEshop.Server.Services.AuthService
         public string? GetUserEmail() => _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.Name);
         
 
-        public async Task<ServiceResponse<string>> Login(string email, string password)
+        public async Task<ServiceResponseDTO<string>> Login(string email, string password)
         {
-            var response = new ServiceResponse<string>();
+            var response = new ServiceResponseDTO<string>();
             var user = await _context.Users
                 .FirstOrDefaultAsync(x => x.Email.ToLower().Equals(email.ToLower()));
             if (user == null)
@@ -48,11 +49,11 @@ namespace BlazorEshop.Server.Services.AuthService
             return response;
         }
 
-        public async Task<ServiceResponse<int>> Register(User user, string password)
+        public async Task<ServiceResponseDTO<int>> Register(User user, string password)
         {
             if (await UserExists(user.Email))
             {
-                return new ServiceResponse<int>
+                return new ServiceResponseDTO<int>
                 {
                     Success = false,
                     Message = "User already exists."
@@ -66,7 +67,7 @@ namespace BlazorEshop.Server.Services.AuthService
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<int> { Data = user.Id, Message = "Registration successful!" };
+            return new ServiceResponseDTO<int> { Data = user.Id, Message = "Registration successful!" };
         }
 
         public async Task<bool> UserExists(string email)
@@ -123,12 +124,12 @@ namespace BlazorEshop.Server.Services.AuthService
             return jwt;
         }
 
-        public async Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword)
+        public async Task<ServiceResponseDTO<bool>> ChangePassword(int userId, string newPassword)
         {
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
             {
-                return new ServiceResponse<bool>
+                return new ServiceResponseDTO<bool>
                 {
                     Success = false,
                     Message = "User not found."
@@ -142,7 +143,7 @@ namespace BlazorEshop.Server.Services.AuthService
 
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<bool> { Data = true, Message = "Password has been changed." };
+            return new ServiceResponseDTO<bool> { Data = true, Message = "Password has been changed." };
         }
 
         public async Task<User> GetUserByEmail(string email)

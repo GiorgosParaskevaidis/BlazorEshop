@@ -1,8 +1,10 @@
-﻿namespace BlazorEshop.Server.Services.AddressService
+﻿using BlazorEshop.Shared.DTO;
+
+namespace BlazorEshop.Server.Services.AddressService
 {
     public interface IAddressService
     {
-        Task<ServiceResponse<Address>> GetAddress();
-        Task<ServiceResponse<Address>> AddOrUpdateAddress(Address address);
+        Task<ServiceResponseDTO<Address>> GetAddress();
+        Task<ServiceResponseDTO<Address>> AddOrUpdateAddress(Address address);
     }
 }

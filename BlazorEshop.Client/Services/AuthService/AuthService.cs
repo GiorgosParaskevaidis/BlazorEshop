@@ -15,10 +15,10 @@ namespace BlazorEshop.Client.Services.AuthService
             _authStateProvider = authStateProvider;
         }
 
-        public async Task<ServiceResponse<bool>> ChangePassword(UserChangePasswordDTO request)
+        public async Task<ServiceResponseDTO<bool>> ChangePassword(UserChangePasswordDTO request)
         {
             var result = await _http.PostAsJsonAsync("api/auth/change-password", request.Password);
-            return await result.Content.ReadFromJsonAsync<ServiceResponse<bool>>();
+            return await result.Content.ReadFromJsonAsync<ServiceResponseDTO<bool>>();
         }
 
         public async Task<bool> IsUserAuthenticated()
@@ -26,16 +26,16 @@ namespace BlazorEshop.Client.Services.AuthService
             return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity!.IsAuthenticated;
         }
 
-        public async Task<ServiceResponse<string>> Login(UserLoginDTO request)
+        public async Task<ServiceResponseDTO<string>> Login(UserLoginDTO request)
         {
             var result = await _http.PostAsJsonAsync("api/auth/login", request);
-            return await result.Content.ReadFromJsonAsync<ServiceResponse<string>>();
+            return await result.Content.ReadFromJsonAsync<ServiceResponseDTO<string>>();
         }
 
-        public async Task<ServiceResponse<int>> Register(UserRegisterDTO request)
+        public async Task<ServiceResponseDTO<int>> Register(UserRegisterDTO request)
         {
             var result = await _http.PostAsJsonAsync("api/auth/register", request);
-            return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
+            return await result.Content.ReadFromJsonAsync<ServiceResponseDTO<int>>();
         }
     }
 }

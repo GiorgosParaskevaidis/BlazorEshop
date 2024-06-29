@@ -1,5 +1,4 @@
 ﻿using BlazorEshop.Server.Migrations;
-using BlazorEshop.Shared;
 using BlazorEshop.Shared.DTO;
 using System.Security.Claims;
 
@@ -16,9 +15,9 @@ namespace BlazorEshop.Server.Services.CartService
             _authService = authService;
         }
 
-        public async Task<ServiceResponse<List<CartProductResponseDTO>>> GetCartProducts(List<CartItem> cartItems)
+        public async Task<ServiceResponseDTO<List<CartProductResponseDTO>>> GetCartProducts(List<CartItem> cartItems)
         {
-            var result = new ServiceResponse<List<CartProductResponseDTO>>
+            var result = new ServiceResponseDTO<List<CartProductResponseDTO>>
             {
                 Data = new List<CartProductResponseDTO>()
             };
@@ -62,7 +61,7 @@ namespace BlazorEshop.Server.Services.CartService
             return result;
         }
 
-        public async Task<ServiceResponse<List<CartProductResponseDTO>>> StoreCartItems(List<CartItem> cartItems)
+        public async Task<ServiceResponseDTO<List<CartProductResponseDTO>>> StoreCartItems(List<CartItem> cartItems)
         {
             cartItems.ForEach(cartItem => cartItem.UserId = _authService.GetUserId());
             _context.CartItems.AddRange(cartItems);
@@ -71,13 +70,13 @@ namespace BlazorEshop.Server.Services.CartService
             return await GetDbCartProducts();
         }
 
-        public async Task<ServiceResponse<int>> GetCartItemsCount()
+        public async Task<ServiceResponseDTO<int>> GetCartItemsCount()
         {
             var count = (await _context.CartItems.Where(ci => ci.UserId == _authService.GetUserId()).ToListAsync()).Count;
-            return new ServiceResponse<int> { Data = count };
+            return new ServiceResponseDTO<int> { Data = count };
         }
 
-        public async Task<ServiceResponse<List<CartProductResponseDTO>>> GetDbCartProducts(int? userId = null)
+        public async Task<ServiceResponseDTO<List<CartProductResponseDTO>>> GetDbCartProducts(int? userId = null)
         {
             if (userId == null)
                 userId = _authService.GetUserId();
@@ -86,7 +85,7 @@ namespace BlazorEshop.Server.Services.CartService
                 .Where(ci => ci.UserId == userId).ToListAsync());
         }
 
-        public async Task<ServiceResponse<bool>> AddToCart(CartItem cartItem)
+        public async Task<ServiceResponseDTO<bool>> AddToCart(CartItem cartItem)
         {
             cartItem.UserId = _authService.GetUserId();
 
@@ -104,10 +103,10 @@ namespace BlazorEshop.Server.Services.CartService
 
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<bool> { Data = true };
+            return new ServiceResponseDTO<bool> { Data = true };
         }
 
-        public async Task<ServiceResponse<bool>> UpdateQuantity(CartItem cartItem)
+        public async Task<ServiceResponseDTO<bool>> UpdateQuantity(CartItem cartItem)
         {
             var dbCartItem = await _context.CartItems
                 .FirstOrDefaultAsync(ci => ci.ProductId == cartItem.ProductId &&
@@ -115,7 +114,7 @@ namespace BlazorEshop.Server.Services.CartService
 
             if (dbCartItem == null)
             {
-                return new ServiceResponse<bool>
+                return new ServiceResponseDTO<bool>
                 {
                     Data = false,
                     Success = false,
@@ -126,10 +125,10 @@ namespace BlazorEshop.Server.Services.CartService
             dbCartItem.Quantity = cartItem.Quantity;
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<bool> { Data = true };
+            return new ServiceResponseDTO<bool> { Data = true };
         }
 
-        public async Task<ServiceResponse<bool>> RemoveItemFromCart(int productId, int productTypeId)
+        public async Task<ServiceResponseDTO<bool>> RemoveItemFromCart(int productId, int productTypeId)
         {
             var dbCartItem = await _context.CartItems
                 .FirstOrDefaultAsync(ci => ci.ProductId == productId &&
@@ -137,7 +136,7 @@ namespace BlazorEshop.Server.Services.CartService
 
             if (dbCartItem == null)
             {
-                return new ServiceResponse<bool>
+                return new ServiceResponseDTO<bool>
                 {
                     Data = false,
                     Success = false,
@@ -148,7 +147,7 @@ namespace BlazorEshop.Server.Services.CartService
             _context.CartItems.Remove(dbCartItem);
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<bool> { Data = true };
+            return new ServiceResponseDTO<bool> { Data = true };
         }
     }
 }

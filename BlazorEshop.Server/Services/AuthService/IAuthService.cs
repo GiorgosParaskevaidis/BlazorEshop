@@ -1,11 +1,13 @@
-﻿namespace BlazorEshop.Server.Services.AuthService
+﻿using BlazorEshop.Shared.DTO;
+
+namespace BlazorEshop.Server.Services.AuthService
 {
     public interface IAuthService
     {
-        Task<ServiceResponse<int>> Register(User user, string password);
+        Task<ServiceResponseDTO<int>> Register(User user, string password);
         Task<bool> UserExists(string email);
-        Task<ServiceResponse<string>> Login(string email, string password);
-        Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword);
+        Task<ServiceResponseDTO<string>> Login(string email, string password);
+        Task<ServiceResponseDTO<bool>> ChangePassword(int userId, string newPassword);
         int GetUserId();
         string GetUserEmail();
 

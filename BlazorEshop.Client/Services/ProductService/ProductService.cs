@@ -1,5 +1,4 @@
-﻿using BlazorEshop.Shared;
-using BlazorEshop.Shared.DTO;
+﻿using BlazorEshop.Shared.DTO;
 using System.Net.Http.Json;
 
 namespace BlazorEshop.Client.Services.ProductService
@@ -25,7 +24,7 @@ namespace BlazorEshop.Client.Services.ProductService
         {
             var result = await _http.PostAsJsonAsync("api/product", product);
             var newProduct = (await result.Content
-                .ReadFromJsonAsync<ServiceResponse<Product>>())!.Data;
+                .ReadFromJsonAsync<ServiceResponseDTO<Product>>())!.Data;
             return newProduct!;
         }
 
@@ -37,7 +36,7 @@ namespace BlazorEshop.Client.Services.ProductService
         public async Task GetAdminProducts()
         {
             var result = await _http
-                .GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product/admin");
+                .GetFromJsonAsync<ServiceResponseDTO<List<Product>>>("api/product/admin");
             AdminProducts = result!.Data!;
             CurrentPage = 1;
             PageCount = 0;
@@ -45,17 +44,17 @@ namespace BlazorEshop.Client.Services.ProductService
                 Message = "No products found.";
         }
 
-        public async Task<ServiceResponse<Product>> GetProduct(int productId)
+        public async Task<ServiceResponseDTO<Product>> GetProduct(int productId)
         {
-            var result = await _http.GetFromJsonAsync<ServiceResponse<Product>>($"api/product/{productId}");
+            var result = await _http.GetFromJsonAsync<ServiceResponseDTO<Product>>($"api/product/{productId}");
             return result;
         }
 
         public async Task GetProducts(string? categoryUrl = null)
         {
             var result = categoryUrl == null ?
-                await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product/featured") :
-                await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/product/category/{categoryUrl}");
+                await _http.GetFromJsonAsync<ServiceResponseDTO<List<Product>>>("api/product/featured") :
+                await _http.GetFromJsonAsync<ServiceResponseDTO<List<Product>>>($"api/product/category/{categoryUrl}");
             if (result != null && result.Data != null)
                 Products = result.Data;
 
@@ -72,7 +71,7 @@ namespace BlazorEshop.Client.Services.ProductService
 
         public async Task<List<string>> GetProductSearchSuggestions(string searchText)
         {
-            var result = await _http.GetFromJsonAsync<ServiceResponse<List<string>>>($"api/product/searchsuggestions/{searchText}");
+            var result = await _http.GetFromJsonAsync<ServiceResponseDTO<List<string>>>($"api/product/searchsuggestions/{searchText}");
             return result.Data;
         }
 
@@ -80,7 +79,7 @@ namespace BlazorEshop.Client.Services.ProductService
         {
             LastSearchText = searchText;
             var result = await _http
-                 .GetFromJsonAsync<ServiceResponse<ProductSearchResultDTO>>($"api/product/search/{searchText}/{page}");
+                 .GetFromJsonAsync<ServiceResponseDTO<ProductSearchResultDTO>>($"api/product/search/{searchText}/{page}");
             if (result != null && result.Data != null)
             {
                 Products = result.Data.Products;
@@ -94,7 +93,7 @@ namespace BlazorEshop.Client.Services.ProductService
         public async Task<Product> UpdateProduct(Product product)
         {
             var result = await _http.PutAsJsonAsync($"api/product", product);
-            var content = await result.Content.ReadFromJsonAsync<ServiceResponse<Product>>();
+            var content = await result.Content.ReadFromJsonAsync<ServiceResponseDTO<Product>>();
             return content!.Data!;
         }
     }

@@ -1,7 +1,6 @@
 ﻿
 using Blazored.LocalStorage;
 using BlazorEshop.Client.Pages;
-using BlazorEshop.Shared;
 using BlazorEshop.Shared.DTO;
 using System.Net.Http.Json;
 
@@ -55,7 +54,7 @@ namespace BlazorEshop.Client.Services.CartService
         {
             if (await _authService.IsUserAuthenticated())
             {
-                var result = await _http.GetFromJsonAsync<ServiceResponse<int>>("api/cart/count");
+                var result = await _http.GetFromJsonAsync<ServiceResponseDTO<int>>("api/cart/count");
                 var count = result!.Data;
 
                 await _localStorage.SetItemAsync<int>("cartItemsCount", count);
@@ -73,7 +72,7 @@ namespace BlazorEshop.Client.Services.CartService
         {
             if (await _authService.IsUserAuthenticated())
             {
-                var response = await _http.GetFromJsonAsync<ServiceResponse<List<CartProductResponseDTO>>>("api/cart");
+                var response = await _http.GetFromJsonAsync<ServiceResponseDTO<List<CartProductResponseDTO>>>("api/cart");
                 return response!.Data!;
             }
             else
@@ -82,7 +81,7 @@ namespace BlazorEshop.Client.Services.CartService
                 if (cartItems == null) return new List<CartProductResponseDTO>();
                 var response = await _http.PostAsJsonAsync("api/cart/products", cartItems);
                 var cartProducts =
-                    await response.Content.ReadFromJsonAsync<ServiceResponse<List<CartProductResponseDTO>>>();
+                    await response.Content.ReadFromJsonAsync<ServiceResponseDTO<List<CartProductResponseDTO>>>();
                 return cartProducts!.Data!;
             }
         }

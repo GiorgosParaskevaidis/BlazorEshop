@@ -1,5 +1,6 @@
 ﻿
 using System.Net.Http.Json;
+using BlazorEshop.Shared.DTO;
 
 namespace BlazorEshop.Client.Services.ProductTypeService
 {
@@ -19,7 +20,7 @@ namespace BlazorEshop.Client.Services.ProductTypeService
         {
             var response = await _http.PostAsJsonAsync("api/producttype", productType);
             ProductTypes = (await response.Content
-                .ReadFromJsonAsync<ServiceResponse<List<ProductType>>>()).Data;
+                .ReadFromJsonAsync<ServiceResponseDTO<List<ProductType>>>()).Data;
             OnChange.Invoke();
         }
 
@@ -35,7 +36,7 @@ namespace BlazorEshop.Client.Services.ProductTypeService
         public async Task GetProductTypes()
         {
             var result = await _http
-                .GetFromJsonAsync<ServiceResponse<List<ProductType>>>("api/producttype");
+                .GetFromJsonAsync<ServiceResponseDTO<List<ProductType>>>("api/producttype");
             ProductTypes = result!.Data!;
         }
 
@@ -43,7 +44,7 @@ namespace BlazorEshop.Client.Services.ProductTypeService
         {
             var response = await _http.PutAsJsonAsync("api/producttype", productType);
             ProductTypes = (await response.Content
-                .ReadFromJsonAsync<ServiceResponse<List<ProductType>>>()).Data;
+                .ReadFromJsonAsync<ServiceResponseDTO<List<ProductType>>>()).Data;
             OnChange.Invoke();
         }
     }

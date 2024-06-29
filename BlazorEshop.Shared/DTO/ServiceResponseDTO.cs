@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorEshop.Shared
+namespace BlazorEshop.Shared.DTO
 {
-    public class ServiceResponse<T>
+    public class ServiceResponseDTO<T>
     {
         public T? Data { get; set; }
         public bool Success { get; set; } = true;

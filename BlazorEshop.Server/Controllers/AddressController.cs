@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BlazorEshop.Shared.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +18,13 @@ namespace BlazorEshop.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<Address>>> GetAddress()
+        public async Task<ActionResult<ServiceResponseDTO<Address>>> GetAddress()
         {
             return await _addressService.GetAddress();
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<Address>>> AddOrUpdateAddress(Address address)
+        public async Task<ActionResult<ServiceResponseDTO<Address>>> AddOrUpdateAddress(Address address)
         {
             return await _addressService.AddOrUpdateAddress(address);
         }

@@ -20,13 +20,13 @@ namespace BlazorEshop.Client.Services.OrderService
 
         public async Task<OrderDetailsResponseDTO> GetOrderDetails(int orderId)
         {
-            var result = await _http.GetFromJsonAsync<ServiceResponse<OrderDetailsResponseDTO>>($"api/order/{orderId}");
+            var result = await _http.GetFromJsonAsync<ServiceResponseDTO<OrderDetailsResponseDTO>>($"api/order/{orderId}");
             return result!.Data!;
         }
 
         public async Task<List<OrderOverviewResponseDTO>> GetOrders()
         {
-            var result = await _http.GetFromJsonAsync<ServiceResponse<List<OrderOverviewResponseDTO>>>("api/order");
+            var result = await _http.GetFromJsonAsync<ServiceResponseDTO<List<OrderOverviewResponseDTO>>>("api/order");
             return result!.Data!;
         }
 

@@ -17,9 +17,9 @@ namespace BlazorEshop.Server.Services.OrderService
             _authService = authService;
         }
 
-        public async Task<ServiceResponse<OrderDetailsResponseDTO>> GetOrderDetails(int orderId)
+        public async Task<ServiceResponseDTO<OrderDetailsResponseDTO>> GetOrderDetails(int orderId)
         {
-            var response = new ServiceResponse<OrderDetailsResponseDTO>();
+            var response = new ServiceResponseDTO<OrderDetailsResponseDTO>();
             var order = await _context.Orders
                 .Include(o => o.OrderItems!)
                 .ThenInclude(oi => oi.Product!)
@@ -59,9 +59,9 @@ namespace BlazorEshop.Server.Services.OrderService
             return response;
         }
 
-        public async Task<ServiceResponse<List<OrderOverviewResponseDTO>>> GetOrders()
+        public async Task<ServiceResponseDTO<List<OrderOverviewResponseDTO>>> GetOrders()
         {
-            var response = new ServiceResponse<List<OrderOverviewResponseDTO>>();
+            var response = new ServiceResponseDTO<List<OrderOverviewResponseDTO>>();
             var orders = await _context.Orders
                 .Include(o => o.OrderItems!)
                 .ThenInclude(oi => oi.Product)
@@ -87,7 +87,7 @@ namespace BlazorEshop.Server.Services.OrderService
             return response;
         }
 
-        public async Task<ServiceResponse<bool>> PlaceOrder(int userId)
+        public async Task<ServiceResponseDTO<bool>> PlaceOrder(int userId)
         {
             var products = (await _cartService.GetDbCartProducts(userId)).Data;
             decimal totalPrice = 0;
@@ -117,7 +117,7 @@ namespace BlazorEshop.Server.Services.OrderService
 
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<bool> { Data = true };
+            return new ServiceResponseDTO<bool> { Data = true };
         }
     }
 }

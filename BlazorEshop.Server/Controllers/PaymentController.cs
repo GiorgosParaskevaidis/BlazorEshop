@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BlazorEshop.Shared.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,7 @@ namespace BlazorEshop.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<bool>>> FulfillOrder()
+        public async Task<ActionResult<ServiceResponseDTO<bool>>> FulfillOrder()
         {
             var response = await _paymentService.FulfillOrder(Request);
             if (!response.Success)

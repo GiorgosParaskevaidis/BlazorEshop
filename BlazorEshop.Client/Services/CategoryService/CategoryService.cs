@@ -1,5 +1,4 @@
-﻿
-using BlazorEshop.Shared;
+﻿using BlazorEshop.Shared.DTO;
 using System.Net.Http.Json;
 
 namespace BlazorEshop.Client.Services.CategoryService
@@ -21,7 +20,7 @@ namespace BlazorEshop.Client.Services.CategoryService
         {
             var response = await _http.PostAsJsonAsync("api/Category/admin", category);
             AdminCategories = (await response.Content
-                .ReadFromJsonAsync<ServiceResponse<List<Category>>>()).Data;
+                .ReadFromJsonAsync<ServiceResponseDTO<List<Category>>>()).Data;
             await GetCategories();
             OnChange?.Invoke();
         }
@@ -38,14 +37,14 @@ namespace BlazorEshop.Client.Services.CategoryService
         {
             var response = await _http.DeleteAsync($"api/Category/admin/{categoryId}");
             AdminCategories = (await response.Content
-                .ReadFromJsonAsync<ServiceResponse<List<Category>>>()).Data;
+                .ReadFromJsonAsync<ServiceResponseDTO<List<Category>>>()).Data;
             await GetCategories();
             OnChange?.Invoke();
         }
 
         public async Task GetAdminCategories()
         {
-            var response = await _http.GetFromJsonAsync<ServiceResponse<List<Category>>>("api/Category/admin");
+            var response = await _http.GetFromJsonAsync<ServiceResponseDTO<List<Category>>>("api/Category/admin");
             if (response != null && response.Data != null)
             {
                 AdminCategories = response.Data;
@@ -54,7 +53,7 @@ namespace BlazorEshop.Client.Services.CategoryService
 
         public async Task GetCategories()
         {
-            var response = await _http.GetFromJsonAsync<ServiceResponse<List<Category>>>("api/Category");
+            var response = await _http.GetFromJsonAsync<ServiceResponseDTO<List<Category>>>("api/Category");
             if (response != null && response.Data != null)
             Categories = response.Data;
         }
@@ -63,7 +62,7 @@ namespace BlazorEshop.Client.Services.CategoryService
         {
             var response = await _http.PutAsJsonAsync("api/Category/admin", category);
             AdminCategories = (await response.Content
-                .ReadFromJsonAsync<ServiceResponse<List<Category>>>()).Data;
+                .ReadFromJsonAsync<ServiceResponseDTO<List<Category>>>()).Data;
             await GetCategories();
             OnChange?.Invoke();
         }

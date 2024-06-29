@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using BlazorEshop.Shared.DTO;
 
 namespace BlazorEshop.Client.Services.AddressService
 {
@@ -15,12 +16,12 @@ namespace BlazorEshop.Client.Services.AddressService
         {
             var response = await _http.PostAsJsonAsync("api/address", address);
             return response.Content
-                .ReadFromJsonAsync<ServiceResponse<Address>>().Result.Data;
+                .ReadFromJsonAsync<ServiceResponseDTO<Address>>().Result.Data;
         }
 
         public async Task<Address> GetAddress()
         {
-            var response = await _http.GetFromJsonAsync<ServiceResponse<Address>>("api/address");
+            var response = await _http.GetFromJsonAsync<ServiceResponseDTO<Address>>("api/address");
             return response.Data;
         }
     }
