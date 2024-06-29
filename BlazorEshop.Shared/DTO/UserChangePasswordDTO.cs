@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorEshop.Shared
+namespace BlazorEshop.Shared.DTO
 {
-    public class UserChangePassword
+    public class UserChangePasswordDTO
     {
         [Required, StringLength(100, MinimumLength = 6)]
         public string Password { get; set; } = string.Empty;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BlazorEshop.Shared.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -17,7 +18,7 @@ namespace BlazorEshop.Server.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegister request)
+        public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegisterDTO request)
         {
             var response = await _authService.Register(
                 new User
@@ -35,7 +36,7 @@ namespace BlazorEshop.Server.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLogin request)
+        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginDTO request)
         {
             var response = await _authService.Login(request.Email, request.Password);
             if (!response.Success)

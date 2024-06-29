@@ -1,5 +1,6 @@
 ﻿
 using System.Net.Http.Json;
+using BlazorEshop.Shared.DTO;
 
 namespace BlazorEshop.Client.Services.AuthService
 {
@@ -14,7 +15,7 @@ namespace BlazorEshop.Client.Services.AuthService
             _authStateProvider = authStateProvider;
         }
 
-        public async Task<ServiceResponse<bool>> ChangePassword(UserChangePassword request)
+        public async Task<ServiceResponse<bool>> ChangePassword(UserChangePasswordDTO request)
         {
             var result = await _http.PostAsJsonAsync("api/auth/change-password", request.Password);
             return await result.Content.ReadFromJsonAsync<ServiceResponse<bool>>();
@@ -25,13 +26,13 @@ namespace BlazorEshop.Client.Services.AuthService
             return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity!.IsAuthenticated;
         }
 
-        public async Task<ServiceResponse<string>> Login(UserLogin request)
+        public async Task<ServiceResponse<string>> Login(UserLoginDTO request)
         {
             var result = await _http.PostAsJsonAsync("api/auth/login", request);
             return await result.Content.ReadFromJsonAsync<ServiceResponse<string>>();
         }
 
-        public async Task<ServiceResponse<int>> Register(UserRegister request)
+        public async Task<ServiceResponse<int>> Register(UserRegisterDTO request)
         {
             var result = await _http.PostAsJsonAsync("api/auth/register", request);
             return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();

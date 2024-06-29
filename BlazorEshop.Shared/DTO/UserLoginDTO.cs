@@ -5,15 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorEshop.Shared
+namespace BlazorEshop.Shared.DTO
 {
-    public class UserRegister
+    public class UserLoginDTO
     {
-        [Required, EmailAddress]
+        [Required]
         public string Email { get; set; } = string.Empty;
-        [Required, StringLength(100, MinimumLength = 6)]
+        [Required]
         public string Password { get; set; } = string.Empty;
-        [Compare("Password", ErrorMessage = "The passwords do not match.")]
-        public string ConfirmPassword { get; set; } = string.Empty;
     }
 }
