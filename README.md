@@ -1,6 +1,6 @@
-<!-- 
-The project is still in progress...
--->
+
+[//]: # The project is still in progress...
+
 
 # BlazorEshop
 
