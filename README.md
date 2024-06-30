@@ -36,5 +36,5 @@ BlazorEshop.Client: Blazor WebAssembly standalone project.
 BlazorEshop.Server: ASP.NET Core Web API project.
 BlazorEshop.Shared: Shared models and DTOs between Client and Server.
 
-Contact
+## Contact
 For any issues or inquiries, please contact us at georgios.paraske@gmail.com
