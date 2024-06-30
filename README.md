@@ -19,7 +19,6 @@ BlazorEshop is a sample e-commerce application built with Blazor WebAssembly. It
 ## Installation Instructions
 
 1.  **Clone the repository**:
-   ```bash
    git clone https://github.com/GiorgosParaskevaidis/BlazorEshop.git
    cd BlazorEshop
 
