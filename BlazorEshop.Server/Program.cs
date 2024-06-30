@@ -11,6 +11,8 @@ global using BlazorEshop.Server.Services.AddressService;
 global using BlazorEshop.Server.Services.ProductTypeService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using BlazorEshop.Server.Helpers;
 namespace BlazorEshop.Server
 {
     public class Program
@@ -18,6 +20,14 @@ namespace BlazorEshop.Server
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowBlazorClient",
+                    builder => builder.WithOrigins("https://localhost:7115")
+                                     .AllowAnyMethod()
+                                     .AllowAnyHeader());
+            });
 
             // Add services to the container.
 
@@ -33,7 +43,23 @@ namespace BlazorEshop.Server
             builder.Services.AddSwaggerGen ();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            //builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Blazor Eshop", Version = "v1" });
+                options.SupportNonNullableReferenceTypes();
+                options.OperationFilter<AuthorizeOperationFilter>();
+                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme,
+                    new OpenApiSecurityScheme
+                    {
+                        Description = "JWT Authorization header using the Bearer scheme.",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.Http,
+                        Scheme = JwtBearerDefaults.AuthenticationScheme,
+                        BearerFormat = "JWT"
+                    });
+            });
 
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -59,7 +85,6 @@ namespace BlazorEshop.Server
             builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
-            app.UseSwaggerUI ();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -68,8 +93,7 @@ namespace BlazorEshop.Server
                 app.UseSwaggerUI();
                 app.UseWebAssemblyDebugging();
             }
-
-            app.UseSwagger();
+            app.UseCors("AllowBlazorClient");
 
             app.UseHttpsRedirection();
 
@@ -82,6 +106,7 @@ namespace BlazorEshop.Server
             app.MapRazorPages();
             app.MapControllers();
             app.MapFallbackToFile("index.html");
+
 
             app.Run();
         }
