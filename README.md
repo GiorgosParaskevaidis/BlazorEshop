@@ -1,6 +1,7 @@
 <!-- 
 The project is still in progress...
 -->
+
 # BlazorEshop
 
 This is the Blazor WebAssembly (WASM) Eshop project.
