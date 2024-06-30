@@ -1,3 +1,6 @@
+<!-- 
+The project is still in progress...
+-->
 # BlazorEshop
 
 This is the Blazor WebAssembly (WASM) Eshop project.
@@ -6,7 +9,6 @@ This is the Blazor WebAssembly (WASM) Eshop project.
 
 BlazorEshop is a sample e-commerce application built with Blazor WebAssembly. It demonstrates the use of Blazor for building a modern web application with a rich user interface, secure authentication, and integration with a backend server.
 
-- The project is still in progres...
 
 ### Prerequisites
 
